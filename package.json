@@ -7,8 +7,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "complie": "npx hardhat compile",
-    "start": "npx hardhat node",
-    "deploy": "npx hardhat run --network localhost scripts/deploy.js"
+    "start": "npx hardhat node --hostname 0.0.0.0",
+    "deploy": "npx hardhat run --network 0.0.0.0 scripts/deploy.js"
   },
   "dependencies": {
     "@headlessui/vue": "^1.5.0",
