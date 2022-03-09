@@ -49,6 +49,11 @@ contract CovidCovac {
         emit CovacCreated(covacCount, data.name, data.nameVacin, data.dateInjections, data.insertDate, msg.sender, data.cardID, data.gender, data.healID, data.birthDate, data.userAddress);
         covacCount++;
     }
+    function editCovac(userInput memory data, uint id) public payable {
+        covac[id] = CovacInfo(id, data.name, data.nameVacin, data.dateInjections, data.insertDate, msg.sender, data.cardID, data.gender, data.healID, data.birthDate, data.userAddress);
+        emit CovacCreated(id, data.name, data.nameVacin, data.dateInjections, data.insertDate, msg.sender, data.cardID, data.gender, data.healID, data.birthDate, data.userAddress);
+
+    }
 
     function getUserCovac(uint _id) public view returns (CovacInfo[] memory){
         CovacInfo memory _covac_base = covac[_id];

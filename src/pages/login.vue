@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="mx-auto max-w-2xl md:mt-44 rounded-md p-4">
+    <div class="mx-auto max-w-2xl md:mt-44 rounded-md p-4 backdrop-blur-md bg-white/60">
       <div>
         <lottie-player
           autoplay

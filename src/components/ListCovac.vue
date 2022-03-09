@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-4xl mx-auto p-4 border rounded-md md:mt-20 space-y-5">
+    <div class="max-w-4xl mx-auto p-4 border rounded-md md:mt-20 space-y-5 bg-white/60 backdrop-blur-md">
       <div
         class="py-2 bg-blue-500 text-white uppercase font-bold rounded-md p-2 text-center"
       >

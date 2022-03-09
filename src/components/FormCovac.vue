@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-4xl mx-auto p-4 border rounded-md md:mt-20 space-y-5">
+    <div class="max-w-4xl mx-auto p-4 border rounded-md md:mt-20 space-y-5 bg-white/60 backdrop-blur-md">
       <div
         class="py-2 bg-blue-500 text-white uppercase font-bold rounded-md p-2 text-center"
       >
@@ -106,9 +106,11 @@
             >
               Đang thực hiện
             </button>
-            <button class="bg-green-500 text-white p-2 rounded-md" v-else>
-              Thêm chứng chỉ
-            </button>
+            <template v-else>
+              <button class="bg-green-500 text-white p-2 rounded-md">
+                {{ idCovac ? "Cập nhật chứng chỉ" : "Thêm chứng chỉ" }}
+              </button>
+            </template>
           </div>
         </form>
       </div>
@@ -195,7 +197,7 @@ export default {
       this.data.insertDate = new Date().getTime().toString();
       let check = true;
       for (let key in this.data) {
-        if (this.data[key] == null || this.data[key] == '') {
+        if (this.data[key] == null || this.data[key] == "") {
           check = false;
           break;
         }
@@ -217,19 +219,21 @@ export default {
         type: "info",
         duration: 5000,
       });
-
-      const res = this.covacConnection.methods
-        .createCovac(this.data)
-        .send({ from: this.userAccount })
-        .once("receipt", (receipt) => {
-          console.log(receipt);
-          this.loading = false;
-          this.$toast.open({
-            message: "Hoàn tất thủ túc!",
-            type: "success",
-            duration: 5000,
-          });
+      let res = null;
+      if (this.idCovac != undefined) {
+        res = this.covacConnection.methods.editCovac(this.data, parseInt(this.idCovac));
+      } else {
+        res = this.covacConnection.methods.createCovac(this.data);
+      }
+      res.send({ from: this.userAccount }).once("receipt", (receipt) => {
+        console.log(receipt);
+        this.loading = false;
+        this.$toast.open({
+          message: "Hoàn tất thủ túc!",
+          type: "success",
+          duration: 5000,
         });
+      });
       res
         .then((data) => {})
         .catch((e) => {
@@ -243,6 +247,9 @@ export default {
     },
   },
   computed: {
+    idCovac() {
+      return this.$route.params.id;
+    },
     userAccount() {
       return this.$store.getters.get("userAccount");
     },
@@ -252,11 +259,9 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("initWeb3");
-    // //     const res = covac.methods.createCovac('Tường Nguyên', 'Verocel', '10/2/2021','3/2/2022').send({ from: this.userAccount }).once('receipt', (receipt) => {
-    // //         console.log(receipt);
-    // //   })
-    //     const productCount = await covac.methods.covacCount().call()
-    //     console.log(productCount);
+    if (this.idCovac) {
+      this.data = await this.covacConnection.methods.covac(this.idCovac).call();
+    }
   },
 };
 </script>

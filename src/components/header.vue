@@ -1,5 +1,5 @@
 <template>
-  <Popover class="border-b">
+  <Popover class="border-b bg-white">
     <div class="container mx-auto">
       <div
         class="py-6 px-2 flex justify-between content-center items-center mx-auto"
@@ -7,9 +7,9 @@
         <div class="flex space-x-4 content-center items-center text-gray-700">
           <Logo class="w-10 h-10 text-white inline fill-green-500" />
           <div class="hidden space-x-4 content-center items-end md:flex">
-            <div class="text-lg font-bold md:text-2xl hidden md:inline">
+            <router-link :to="{name: 'index'}" class="text-lg font-bold md:text-2xl hidden md:inline">
               Confirm covac
-            </div>
+            </router-link>
             <router-link
               :to="{ name: 'dashbroad' }"
               :class="{ 'text-green-500': $route.name === 'dashbroad' }"

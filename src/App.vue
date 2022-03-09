@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div  class="bg-app bg-bottom bg-no-repeat fixed inset-0 -z-10 bg-slate-50"></div>
     <Header />
     <div class="container mx-auto">
       <router-view />

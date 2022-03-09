@@ -1,6 +1,6 @@
 <template>
   <div ref="bg">
-    <div class="max-w-4xl mx-auto p-4 md:mt-10 space-y-5">
+    <div class="max-w-4xl mx-auto p-4 md:mt-10 space-y-5 bg-white/70 backdrop-blur-md">
       <div
         class="mx-auto p-4 border rounded-md"
         :class="{ 'bg-blue-500': countVacin >= 2 || countVacinQR >=2 }"
@@ -19,10 +19,12 @@
           </div>
         </div>
       </div>
+
       <div
-        class="md:flex items-center md:space-x-10 border rounded-md p-4 space-y-10"
+        class="rounded-md p-4 space-y-10 border"
         v-if="res"
       >
+      <div class="md:flex items-center md:space-x-10">
         <div class="">
           <QRCode :data="qrURL" v-if="countVacin || countVacinQR" />
         </div>
@@ -88,6 +90,10 @@
             </div>
           </div>
         </div>
+        </div>
+        <div>
+          <router-link tag="button" :to="{ name: 'edit_covac', params: { id: idConstract}}" class="bg-green-500 text-white px-3 py-2 rounded-md">Chỉnh sửa</router-link>
+        </div>
       </div>
       <div class="mt-10 mx-auto p-4 border rounded-md">
         <div class="text-xl">Các mũi liên quan</div>
@@ -119,6 +125,9 @@ export default {
     };
   },
   computed: {
+    userAccount() {
+      return this.$store.state.userAccount;
+    },
     idConstract() {
       return this.$route.params.id;
     },
@@ -127,7 +136,6 @@ export default {
         countVacin: this.countVacin || this.countVacinQR,
         data: this.res
       }
-      console.log(data);
       const str_data = btoa(encodeURIComponent(JSON.stringify(data)))
       if (window.location.port) {
         return `${window.location.protocol}//${window.location.hostname}:${window.location.port}/infoCovac/?data=${str_data}&source=shareWithQR`;

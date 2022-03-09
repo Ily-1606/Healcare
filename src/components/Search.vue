@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-4xl mx-auto p-4 md:mt-20 space-y-5">
+    <div class="max-w-4xl mx-auto p-4 md:mt-20 space-y-5 bg-white/70 backdrop-blur-md">
       <div class="mmx-auto p-4 border rounded-md">
         <div class="text-xl">Kết quả cho từ khóa: {{$route.query.q}}</div>
         <div class="mt-10 space-y-4" v-if="res">
