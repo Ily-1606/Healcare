@@ -225,7 +225,7 @@ export default {
       } else {
         res = this.covacConnection.methods.createCovac(this.data);
       }
-      res.send({ from: this.userAccount }).once("receipt", (receipt) => {
+      res = res.send({ from: this.userAccount }).once("receipt", (receipt) => {
         console.log(receipt);
         this.loading = false;
         this.$toast.open({
